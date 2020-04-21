@@ -1,10 +1,9 @@
 import random
-from math import sqrt
+
 
 def is_prime(n):
     """
     Tests to see if a number is prime.
-
     >>> is_prime(2)
     True
     >>> is_prime(11)
@@ -13,67 +12,50 @@ def is_prime(n):
     False
     """
     # PUT YOUR CODE HERE
-    if n < 2:
-        return False
-    if n == 2:
+    if n == 2 or n == 3:
         return True
-    limit = sqrt(n)
-    i = 2
-    while i <= limit:
+    if n % 2 == 0 or n < 2:
+        return False
+    for i in range(3, int(n ** 0.5) + 1, 2):
         if n % i == 0:
             return False
-        i += 1
     return True
 
 
 def gcd(a, b):
     """
     Euclid's algorithm for determining the greatest common divisor.
-
     >>> gcd(12, 15)
     3
     >>> gcd(3, 7)
     1
     """
     # PUT YOUR CODE HERE
-    while b != 0:
-        a, b = b, a % b
-    return a
-
+    while a != 0 and b != 0:
+        if a > b:
+            a = a % b
+        else:
+            b = b % a
+    return a + b
 
 
 def multiplicative_inverse(e, phi):
     """
     Euclid's extended algorithm for finding the multiplicative
     inverse of two numbers.
-
     >>> multiplicative_inverse(7, 40)
     23
     """
     # PUT YOUR CODE HERE
-    d = 0
-    x1 = 0
-    x2 = 1
-    y1 = 1
-    temp_phi = phi
+    def gcdex(a, b):
+        if b == 0:
+            return a, 1, 0
+        else:
+            d, x, y = gcdex(b, a % b)
+            return d, y, x - y * (a // b)
 
-    while e > 0:
-        temp1 = temp_phi / e
-        temp2 = temp_phi - temp1 * e
-        temp_phi = e
-        e = temp2
-
-        x = x2 - temp1 * x1
-        y = d - temp1 * y1
-
-        x2 = x1
-        x1 = x
-        d = y1
-        y1 = y
-
-    if temp_phi == 1:
-        return d + phi
-
+    d, x, y = gcdex(e, phi)
+    return x % phi
 
 
 def generate_keypair(p, q):
@@ -99,6 +81,7 @@ def generate_keypair(p, q):
 
     # Use Extended Euclid's Algorithm to generate the private key
     d = multiplicative_inverse(e, phi)
+
     # Return public and private keypair
     # Public key is (e, n) and private key is (d, n)
     return ((e, n), (d, n))
@@ -137,3 +120,4 @@ if __name__ == '__main__':
     print("Decrypting message with public key ", public, " . . .")
     print("Your message is:")
     print(decrypt(public, encrypted_msg))
+
