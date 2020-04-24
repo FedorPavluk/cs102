@@ -11,7 +11,6 @@ def is_prime(n):
     >>> is_prime(8)
     False
     """
-    # PUT YOUR CODE HERE
     if n == 2 or n == 3:
         return True
     if n % 2 == 0 or n < 2:
@@ -38,7 +37,6 @@ def gcd(a, b):
             b = b % a
     return a + b
 
-
 def multiplicative_inverse(e, phi):
     """
     Euclid's extended algorithm for finding the multiplicative
@@ -46,7 +44,6 @@ def multiplicative_inverse(e, phi):
     >>> multiplicative_inverse(7, 40)
     23
     """
-    # PUT YOUR CODE HERE
     def gcdex(a, b):
         if b == 0:
             return a, 1, 0
@@ -65,10 +62,8 @@ def generate_keypair(p, q):
         raise ValueError('p and q cannot be equal')
 
     # n = pq
-    # PUT YOUR CODE HERE
     n = p * q
     # phi = (p-1)(q-1)
-    # PUT YOUR CODE HERE
     phi = (p - 1) * (q - 1)
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)

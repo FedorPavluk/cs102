@@ -11,7 +11,6 @@ def encrypt_caesar(plaintext):
     >>> encrypt_caesar("")
     ''ciphernum > ord('z')
     """
-    # PUT YOUR CODE HERE
     ciphertext = ''
     for ch in plaintext:
         if 'a' <= ch <= 'z' or 'A' <= ch <= 'Z':
@@ -37,7 +36,6 @@ def decrypt_caesar(ciphertext):
     >>> decrypt_caesar("")
     ''
     """
-    # PUT YOUR CODE HERE
     plaintext = ''
     for ch in ciphertext:
         if 'a' <= ch <= 'z' or 'A' <= ch <= 'Z':
@@ -47,5 +45,3 @@ def decrypt_caesar(ciphertext):
             ciphertext += chr(ciphernum)
         else:
             ciphertext += ch
-    return ciphertext
-    return plaintext
